@@ -9,30 +9,30 @@ local function is_wsl()
 end
 
 if is_wsl() then
-  -- vim.g.clipboard = "" -- responsive but no sync to windows thru wsl :(
-  vim.g.clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf",
-    },
-
-    paste = {
-      ["+"] = "win32yank.exe -o --lf",
-      ["*"] = "win32yank.exe -o --lf",
-    },
-    cache_enabled = 1,
-  }
-
-  -- sync with system clipboard on focus
-  vim.api.nvim_create_autocmd({ "FocusGained" }, {
-    pattern = { "*" },
-    command = [[call setreg("@", getreg("+"))]],
-  })
-
-  -- sync with system clipboard on focus
-  vim.api.nvim_create_autocmd({ "FocusLost" }, {
-    pattern = { "*" },
-    command = [[call setreg("+", getreg("@"))]],
-  })
+  vim.g.clipboard = "" -- responsive but no sync to windows thru wsl :(
+  --   vim.g.clipboard = {
+  --     name = "win32yank-wsl", -- symlink from windows -> linux path makes this faster for whatever reason
+  --     copy = {
+  --       ["+"] = "win32yank.exe -i --crlf",
+  --       ["*"] = "win32yank.exe -i --crlf",
+  --     },
+  --
+  --     paste = {
+  --       ["+"] = "win32yank.exe -o --lf",
+  --       ["*"] = "win32yank.exe -o --lf",
+  --     },
+  --     cache_enabled = 1,
+  --   }
+  --
+  --   -- sync with system clipboard on focus
+  --   vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  --     pattern = { "*" },
+  --     command = [[call setreg("@", getreg("+"))]],
+  --   })
+  --
+  --   -- sync with system clipboard on focus
+  --   vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  --     pattern = { "*" },
+  --     command = [[call setreg("+", getreg("@"))]],
+  --   })
 end
